@@ -2,8 +2,12 @@ POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Growing up in Straboe",
-    "author": "Oisin Cummins",
-    "url": "oisincummins.com/blogs/straboe",
-    "likes": "100"
+    "title": "Cats",
+    "author": "Steven Cranley",
+    "url": "stevencranley.com/blogs/straboe",
+    "likes": 300
 }
+
+###
+
+GET http://localhost:3001/api/blogs
