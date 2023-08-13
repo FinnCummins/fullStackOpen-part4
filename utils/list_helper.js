@@ -38,9 +38,11 @@ const mostBlogs = (blogs) => {
     let currentAuthor = null
 
     const authors = []
+
     blogs.forEach(blog => {
         authors.push(blog.author)
     })
+
     const totalAuthorPosts = _.countBy(authors);
 
     for (const key in totalAuthorPosts) {
@@ -63,9 +65,60 @@ const mostBlogs = (blogs) => {
     return currentAuthor
 }
 
+const mostLikes = (blogs) => {
+    let currentAuthor = null
+
+    const authors = []
+    
+    blogs.forEach(blog => {
+        const author = blog.author
+        authors.push({
+            author : blog.author,
+            likes: blog.likes
+        })
+    })
+
+    const set = []
+    const condensedList = []
+
+    authors.forEach(author => {
+            if (set.includes(author.author)) {
+                condensedList.forEach(item => {
+                    if (item.author === author.author) {
+                        item.likes += author.likes
+                    }
+                })
+            }
+            else {
+                set.push(author.author)
+                condensedList.push({
+                    author: author.author,
+                    likes: author.likes
+                })
+            }
+        }
+    )
+
+    let answer = null
+
+    condensedList.forEach(item => {
+        if (answer != null) {
+            if (item.likes >= answer.likes) {
+                answer = item
+            }
+        }
+        else {
+            answer = item
+        }
+    })
+
+    return answer
+}
+
 module.exports = {
     dummy,
     totalLikes,
     favoriteBlog,
-    mostBlogs
+    mostBlogs,
+    mostLikes
 }
