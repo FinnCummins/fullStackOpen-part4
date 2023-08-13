@@ -16,4 +16,7 @@ blogSchema.set('toJSON', {
   }
 })
 
+const mongoUrl = config.MONGODB_URI
+mongoose.connect(mongoUrl)
+
 module.exports = mongoose.model('Blog', blogSchema)
