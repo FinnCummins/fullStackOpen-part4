@@ -17,3 +17,17 @@ test('Blog post id field exists', async () => {
     const response = await api.get('/api/blogs')
     expect(response.body[0].id).toBeDefined()
 })
+
+test('Blog post successfully created', async () => {
+
+    const newBlog = {
+        "title": "New Blog",
+        "author": "Steven O'Reilly",
+        "url": "stevenoreilly.com/blogs/newblog",
+        "likes": 300
+    }
+    const blogs = await Blog.find({})
+    const response = await api.post('/api/blogs').send(newBlog)
+    const getResponse = await api.get('/api/blogs')
+    expect(getResponse.body.length).toEqual(blogs.length + 1)
+})
