@@ -2,6 +2,7 @@ const Blog = require('../models/blog')
 const blogsRouter = require('express').Router()
 const express = require('express')
 const cors = require('cors')
+const logger = require('../utils/logger')
 
 blogsRouter.use(express.json())
 blogsRouter.use(cors())
@@ -13,6 +14,11 @@ blogsRouter.get('/', async (request, response) => {
   
 blogsRouter.post('/', async (request, response) => {
     const body = request.body
+
+    if (!body.hasOwnProperty("likes"))
+    {
+      body.likes = 0
+    }
 
     const blog = new Blog(body)
   

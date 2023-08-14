@@ -24,10 +24,20 @@ test('Blog post successfully created', async () => {
         "title": "New Blog",
         "author": "Steven O'Reilly",
         "url": "stevenoreilly.com/blogs/newblog",
-        "likes": 300
+        "likes": 341
     }
     const blogs = await Blog.find({})
     const response = await api.post('/api/blogs').send(newBlog)
     const getResponse = await api.get('/api/blogs')
     expect(getResponse.body.length).toEqual(blogs.length + 1)
+})
+
+test('Blog post created without a likes field', async () => {
+    const newBlog = {
+        "title": "New Blog",
+        "author": "Steven O'Reilly",
+        "url": "stevenoreilly.com/blogs/newblog",
+    }
+    const response = await api.post('/api/blogs').send(newBlog)
+    expect(response.body.likes).toEqual(0)
 })
