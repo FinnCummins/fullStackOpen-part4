@@ -41,3 +41,23 @@ test('Blog post created without a likes field', async () => {
     const response = await api.post('/api/blogs').send(newBlog)
     expect(response.body.likes).toEqual(0)
 })
+
+test('Blog post created without a title field', async () => {
+    const newBlog = {
+        "author": "Steven O'Reilly",
+        "url": "stevenoreilly.com/blogs/newblog",
+        "likes": 400
+    }
+    const response = await api.post('/api/blogs').send(newBlog)
+    expect(response.statusCode).toEqual(400)
+})
+
+test('Blog post created without a url field', async () => {
+    const newBlog = {
+        "title": "New Blog",
+        "author": "Steven O'Reilly",
+        "likes": 341
+    }
+    const response = await api.post('/api/blogs').send(newBlog)
+    expect(response.statusCode).toEqual(400)
+})
