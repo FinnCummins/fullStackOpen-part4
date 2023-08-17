@@ -1,0 +1,9 @@
+PUT http://localhost:3001/api/blogs/64d9350518a36fbdae3473fa
+Content-Type: application/json
+
+{
+    "title": "Cats",
+    "author": "Steven Cranley",
+    "url": "stevencranley.com/blogs/straboe",
+    "likes": 720
+}
