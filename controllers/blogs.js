@@ -2,7 +2,6 @@ const Blog = require('../models/blog');
 const blogsRouter = require('express').Router();
 const express = require('express');
 const cors = require('cors');
-const logger = require('../utils/logger');
 
 blogsRouter.use(express.json());
 blogsRouter.use(cors());

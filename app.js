@@ -1,14 +1,17 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const config = require('./utils/config')
+const config = require('./utils/config');
 
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 
-const blogsRouter = require('./controllers/blogs')
-app.use('/api/blogs', blogsRouter)
+const blogsRouter = require('./controllers/blogs');
+app.use('/api/blogs', blogsRouter);
 
-const mongoUrl = config.MONGODB_URI
-mongoose.connect(mongoUrl)
+const usersRouter = require('./controllers/users');
+app.use('/api/users', usersRouter);
 
-module.exports = app
+const mongoUrl = config.MONGODB_URI;
+mongoose.connect(mongoUrl);
+
+module.exports = app;

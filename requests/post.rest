@@ -2,10 +2,10 @@ POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Cats",
+    "title": "Parrots",
     "author": "Steven Cranley",
-    "url": "stevencranley.com/blogs/straboe",
-    "likes": 300
+    "url": "stevencranley.com/blogs/parrots",
+    "likes": 1300
 }
 
 ###
