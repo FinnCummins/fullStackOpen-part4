@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const supertest = require('supertest');
 const app = require('../app');
 const Blog = require('../models/blog');
+const User = require('../models/user');
 const logger = require('../utils/logger');
 const helper = require('./test_helper');
 
@@ -11,7 +12,7 @@ describe('testing GET, POST, DELETE and POST on a database of blogs...', () => {
   beforeEach(async () => {
     await Blog.deleteMany({});
     await Blog.insertMany(helper.initialBlogs);
-  });
+  }, 10000);
 
   test('Blogs are returned as JSON objects', async () => {
     const response = await api.get('/api/blogs');
@@ -97,5 +98,33 @@ describe('testing GET, POST, DELETE and POST on a database of blogs...', () => {
       .send(newBlog);
 
     expect(updatedBlog.body.likes).toEqual(blogToUpdate.likes + 10);
+  });
+});
+
+describe('Testing the addition of Users to the application', () => {
+  test('Added a user with an invalid username and password', async () => {
+    const newUser = {
+      username: 'fi',
+      name: 'Finn Cummins',
+      password: 'qu',
+    };
+
+    await api.post('/api/users').send(newUser).expect(400);
+  });
+
+  test('User has been succesfully added to the application', async () => {
+    const newUser = {
+      username: 'finkc',
+      name: 'Finn Cummins',
+      password: '12345',
+    };
+
+    const initialUsers = await api.get('/api/users');
+
+    await api.post('/api/users').send(newUser).expect(201);
+
+    const currentUsers = await api.get('/api/users');
+
+    expect(currentUsers.body).toHaveLength(initialUsers.body.length + 1);
   });
 });
