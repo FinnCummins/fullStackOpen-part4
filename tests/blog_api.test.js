@@ -102,6 +102,11 @@ describe('testing GET, POST, DELETE and POST on a database of blogs...', () => {
 });
 
 describe('Testing the addition of Users to the application', () => {
+  beforeEach(async () => {
+    await User.deleteMany({});
+    await User.insertMany(helper.initialUsers);
+  }, 10000);
+
   test('Added a user with an invalid username and password', async () => {
     const newUser = {
       username: 'fi',
@@ -114,9 +119,9 @@ describe('Testing the addition of Users to the application', () => {
 
   test('User has been succesfully added to the application', async () => {
     const newUser = {
-      username: 'finkc',
+      username: 'ffinkc',
       name: 'Finn Cummins',
-      password: '12345',
+      password: '12f345',
     };
 
     const initialUsers = await api.get('/api/users');
@@ -126,5 +131,5 @@ describe('Testing the addition of Users to the application', () => {
     const currentUsers = await api.get('/api/users');
 
     expect(currentUsers.body).toHaveLength(initialUsers.body.length + 1);
-  });
+  }, 10000);
 });

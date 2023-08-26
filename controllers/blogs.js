@@ -7,7 +7,7 @@ blogsRouter.use(express.json());
 blogsRouter.use(cors());
 
 blogsRouter.get('/', async (request, response) => {
-  const blogs = await Blog.find({});
+  const blogs = await Blog.find({}).populate('user');
   response.json(blogs);
 });
 
@@ -18,10 +18,15 @@ blogsRouter.post('/', async (request, response) => {
     body.likes = 0;
   }
 
+  const newBlog = {
+    ...body,
+    user: "64ea0de087627d1760fae97a"
+  }
+
   if (!body.hasOwnProperty('title') || !body.hasOwnProperty('url')) {
     response.status(400).end();
   } else {
-    const blog = new Blog(body);
+    const blog = new Blog(newBlog);
 
     const result = await blog.save();
     response.status(201).json(result);

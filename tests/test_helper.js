@@ -51,6 +51,24 @@ const initialBlogs = [
   },
 ];
 
+const initialUsers = [
+  {
+    "username": "DerC",
+    "name": "Der C",
+    "password": "D-dawg"
+  },
+  {
+    "username": "OisC",
+    "name": "Ois Coimin",
+    "password": "Oisdawg"
+  },
+  {
+    "username": "FiC",
+    "name": "Fincoimin",
+    "password": "Finndawg"
+  },
+];
+
 const nonExistingId = async () => {
   const note = new Note({ content: 'willremovethissoon' });
   await note.save();

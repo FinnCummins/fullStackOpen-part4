@@ -8,7 +8,7 @@ usersRouter.use(express.json());
 //usersRouter.use(cors());
 
 usersRouter.get('/', async (request, response) => {
-  const users = await User.find({});
+  const users = await User.find({}).populate('blogs');
   response.json(users);
 });
 
@@ -42,6 +42,7 @@ usersRouter.post('/', async (request, response) => {
     username,
     name,
     passwordHash,
+    blogs: ["64ea0eefc5977b6b8e0a4bee"]
   });
 
   const savedUser = await user.save();
